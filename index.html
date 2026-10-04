@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Demo Prototypes | Digital Solutions Showcase</title>
+  <meta name="description" content="A curated showcase of digital solution prototypes for public services, healthcare, civic administration, land management and future-ready learning." />
+  <style>
+    :root{
+      --bg:#f5f7fa;
+      --surface:#ffffff;
+      --surface-soft:#f8fafc;
+      --text:#172033;
+      --muted:#657084;
+      --line:#e4e8ef;
+      --accent:#2457d6;
+      --accent-dark:#173f9f;
+      --accent-soft:#edf3ff;
+      --success:#147a5b;
+      --shadow:0 14px 40px rgba(23,32,51,.07);
+      --shadow-hover:0 22px 54px rgba(23,32,51,.12);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 88% 0%, rgba(36,87,214,.07), transparent 30%),
+        var(--bg);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    a{text-decoration:none;color:inherit}
+
+    .page{
+      width:min(1180px, calc(100% - 48px));
+      margin:0 auto;
+      padding:42px 0 48px;
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:28px;
+      padding:6px 2px 42px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-size:14px;
+      font-weight:750;
+      letter-spacing:.02em;
+      color:#29354a;
+    }
+
+    .brand-mark{
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      background:#172033;
+      display:grid;
+      place-items:center;
+      box-shadow:0 7px 18px rgba(23,32,51,.16);
+    }
+
+    .brand-mark span{
+      width:13px;
+      height:13px;
+      border:2px solid #fff;
+      border-radius:4px;
+      display:block;
+    }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      color:#667186;
+      font-size:12px;
+      font-weight:650;
+    }
+
+    .status-dot{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--success);
+      box-shadow:0 0 0 4px rgba(20,122,91,.09);
+    }
+
+    .hero{
+      max-width:850px;
+      margin-bottom:34px;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+      margin-bottom:15px;
+    }
+
+    .eyebrow::before{
+      content:"";
+      width:24px;
+      height:2px;
+      border-radius:10px;
+      background:var(--accent);
+    }
+
+    h1{
+      margin:0;
+      font-size:clamp(40px,5vw,64px);
+      line-height:1.03;
+      letter-spacing:-.045em;
+      font-weight:780;
+    }
+
+    .hero p{
+      margin:18px 0 0;
+      max-width:730px;
+      font-size:17px;
+      line-height:1.7;
+      color:var(--muted);
+    }
+
+    .section-label{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin:0 0 13px 2px;
+      color:#7a8495;
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .section-label::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:var(--line);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:18px;
+    }
+
+    .card{
+      position:relative;
+      min-height:250px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:27px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:var(--surface);
+      box-shadow:var(--shadow);
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      cursor:pointer;
+      isolation:isolate;
+    }
+
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:var(--shadow-hover);
+      border-color:#d5dce8;
+    }
+
+    .card:focus-visible{
+      outline:3px solid rgba(36,87,214,.22);
+      outline-offset:3px;
+    }
+
+    .card.featured{
+      grid-column:1 / -1;
+      min-height:315px;
+      padding:32px;
+      color:#fff;
+      border-color:#1b47b0;
+      background:
+        radial-gradient(circle at 88% 10%, rgba(255,255,255,.15), transparent 27%),
+        linear-gradient(125deg,#173d99 0%, #2457d6 58%, #2f6ae9 100%);
+      box-shadow:0 20px 55px rgba(31,75,180,.20);
+    }
+
+    .card.featured:hover{
+      border-color:#15398e;
+      box-shadow:0 26px 65px rgba(31,75,180,.28);
+    }
+
+    .featured::after{
+      content:"";
+      position:absolute;
+      width:270px;
+      height:270px;
+      right:-95px;
+      bottom:-150px;
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:50%;
+      box-shadow:0 0 0 45px rgba(255,255,255,.035), 0 0 0 90px rgba(255,255,255,.025);
+      z-index:-1;
+    }
+
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .icon{
+      width:48px;
+      height:48px;
+      flex:0 0 48px;
+      display:grid;
+      place-items:center;
+      border-radius:14px;
+      background:var(--accent-soft);
+      color:var(--accent);
+    }
+
+    .featured .icon{
+      background:rgba(255,255,255,.15);
+      color:#fff;
+    }
+
+    .icon svg{
+      width:23px;
+      height:23px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:1.8;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .flag{
+      display:inline-flex;
+      align-items:center;
+      padding:7px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:.09em;
+      text-transform:uppercase;
+    }
+
+    .card h2{
+      margin:25px 0 10px;
+      font-size:23px;
+      line-height:1.2;
+      letter-spacing:-.025em;
+    }
+
+    .featured h2{
+      margin-top:27px;
+      max-width:760px;
+      font-size:31px;
+    }
+
+    .card p{
+      margin:0;
+      max-width:720px;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+    }
+
+    .featured p{
+      color:rgba(255,255,255,.80);
+      font-size:15px;
+      max-width:790px;
+    }
+
+    .card-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-top:28px;
+    }
+
+    .cta{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--accent);
+    }
+
+    .featured .cta{color:#fff}
+
+    .arrow{
+      width:26px;
+      height:26px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#eef2f8;
+      transition:transform .2s ease, background .2s ease;
+    }
+
+    .featured .arrow{background:rgba(255,255,255,.14)}
+
+    .card:hover .arrow{
+      transform:translateX(3px);
+      background:#e4eaf4;
+    }
+
+    .featured:hover .arrow{background:rgba(255,255,255,.22)}
+
+    .arrow svg{
+      width:13px;
+      height:13px;
+      fill:none;
+      stroke:currentColor;
+      stroke-width:2;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:31px 2px 0;
+      color:#8a93a3;
+      font-size:11px;
+      line-height:1.5;
+    }
+
+    footer strong{color:#697487;font-weight:750}
+
+    @media (max-width:760px){
+      .page{width:min(100% - 28px,1180px);padding-top:24px}
+      header{padding-bottom:34px}
+      .status{display:none}
+      .grid{grid-template-columns:1fr}
+      .card.featured{grid-column:auto;min-height:300px}
+      .card{min-height:235px}
+      h1{font-size:43px}
+      .hero p{font-size:15px}
+      footer{align-items:flex-start;flex-direction:column}
+    }
+
+    @media (prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important;transition:none!important}
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span></span></div>
+        <span>Digital Solutions Showcase</span>
+      </div>
+      <div class="status"><span class="status-dot"></span> Presentation-ready prototypes</div>
+    </header>
+
+    <section class="hero">
+      <div class="eyebrow">Demo Prototypes</div>
+      <h1>Solutions for a smarter, more connected future.</h1>
+      <p>
+        Explore a selection of digital solution prototypes designed to improve
+        public services, institutional operations, citizen experience and
+        future-ready learning.
+      </p>
+    </section>
+
+    <div class="section-label">Featured solution</div>
+
+    <section class="grid" aria-label="Prototype demos">
+
+      <!-- Replace the href value below with the AI & Robotics Lab URL -->
+      <a class="card featured" href="https://inlearntech.com/" target="_blank" rel="noopener noreferrer" aria-label="Open AI and Robotics Innovation Lab prototype">
+        <div>
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <rect x="5" y="6" width="14" height="13" rx="3"></rect>
+                <path d="M9 6V4m6 2V4M8.5 11h.01M15.5 11h.01M9 15c1.7 1.2 4.3 1.2 6 0"></path>
+                <path d="M3 11v3M21 11v3"></path>
+              </svg>
+            </div>
+            <span class="flag">Flagship offering</span>
+          </div>
+          <h2>AI &amp; Robotics Innovation Lab</h2>
+          <p>
+            A future-ready learning and innovation ecosystem bringing AI,
+            robotics, hands-on STEM and emerging technologies closer to
+            schools, students and communities.
+          </p>
+        </div>
+        <div class="card-bottom">
+          <span class="cta">Explore prototype <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+          </span></span>
+        </div>
+      </a>
+
+      <!-- Replace the href value below with the HMIS URL -->
+      <a class="card" href="https://ajayuxd1-sudo.github.io/hmis/" target="_blank" rel="noopener noreferrer" aria-label="Open HMIS prototype">
+        <div>
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 21s7-3.5 7-9V5.5L12 3 5 5.5V12c0 5.5 7 9 7 9Z"></path>
+                <path d="M12 8v8M8 12h8"></path>
+              </svg>
+            </div>
+          </div>
+          <h2>Health Management Information System</h2>
+          <p>
+            A connected digital platform designed to streamline healthcare
+            operations, information flow and data-driven decision-making.
+          </p>
+        </div>
+        <div class="card-bottom">
+          <span class="cta">Explore prototype <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+          </span></span>
+        </div>
+      </a>
+
+      <!-- Replace the href value below with the Citizen Grievance URL -->
+      <a class="card" href="https://ajayuxd1-sudo.github.io/grievance/" target="_blank" rel="noopener noreferrer" aria-label="Open Citizen Grievance Management prototype">
+        <div>
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M5 5h14v11H9l-4 4V5Z"></path>
+                <path d="M8 9h8M8 12h5"></path>
+              </svg>
+            </div>
+          </div>
+          <h2>Citizen Grievance Management</h2>
+          <p>
+            A transparent platform for registering, tracking and resolving
+            citizen grievances across departments and service teams.
+          </p>
+        </div>
+        <div class="card-bottom">
+          <span class="cta">Explore prototype <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+          </span></span>
+        </div>
+      </a>
+
+      <!-- Replace the href value below with the Land & Asset Management URL -->
+      <a class="card" href="https://ajayuxd1-sudo.github.io/Landmanagement/" target="_blank" rel="noopener noreferrer" aria-label="Open Land and Asset Management prototype">
+        <div>
+          <div class="card-top">
+            <div class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 20V7l8-4 8 4v13"></path>
+                <path d="M4 20h16M8 20v-7h8v7M8 9h.01M12 9h.01M16 9h.01"></path>
+              </svg>
+            </div>
+          </div>
+          <h2>Land &amp; Asset Management</h2>
+          <p>
+            A unified platform for managing land records, government assets,
+            properties and related administrative workflows.
+          </p>
+        </div>
+        <div class="card-bottom">
+          <span class="cta">Explore prototype <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+          </span></span>
+        </div>
+      </a>
+
+    </section>
+
+    <footer>
+      <span><strong>Demo Prototypes</strong> · Digital solutions showcase</span>
+      <span>Prototype interfaces shown for demonstration purposes.</span>
+    </footer>
+  </main>
+</body>
+</html>
